@@ -1,0 +1,46 @@
+{
+  "handler": "Microsoft.Azure.CreateUIDef",
+  "version": "0.1.2-preview",
+  "parameters": {
+    "basics": [
+      {}
+    ],
+    "steps": [
+      {
+        "name": "lzSettings",
+        "label": "Company prefix",
+        "subLabel": {
+          "preValidation": "Provide a company prefix for the management group structure that will be created.",
+          "postValidation": "Done"
+        },
+        "bladeTitle": "Company prefix",
+        "elements": [
+          {
+            "name": "infoMgmtGroup",
+            "type": "Microsoft.Common.InfoBox",
+            "visible": true,
+            "options": {
+              "icon": "Info",
+              "text": "Landing Zone template will create the management group hierarchy under the Tenant Root Group with the prefix provided at this step."
+            }
+          },
+          {
+            "name": "esMgmtGroup",
+            "type": "Microsoft.Common.TextBox",
+            "label": "Management Group prefix",
+            "toolTip": "Provide a prefix (max 15 characters, unique at tenant-scope) for the Management Group hierarchy and other resources created as part of the landing zone.",
+            "defaultValue": "",
+            "constraints": {
+              "required": true,
+              "regex": "^[a-z0-9A-Z-]{1,15}$",
+              "validationMessage": "The prefix must be 1-15 characters."
+            }
+          }
+        ]
+      }
+    ],
+    "outputs": {
+      "enterpriseScaleCompanyPrefix": "[steps('lzSettings').esMgmtGroup]"
+    }
+  }
+}
