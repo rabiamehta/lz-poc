@@ -4,6 +4,9 @@
     "parameters": {
         "enterpriseScaleCompanyPrefix": {
             "value": "coe" 
+        },
+        "location": {
+            "value": ""
         }
     }
 }

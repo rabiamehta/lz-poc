@@ -2,6 +2,13 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-08-01/tenantDeploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": "[deployment().location]",
+            "metadata": {
+                "description": "Location of the HUB"
+            }
+        },
         "enterpriseScaleCompanyPrefix": {
             "type": "string",
             "maxLength": 10,
@@ -13,9 +20,9 @@
     "variables": {
         "deploymentUris": {
             "managementGroups": "[uri(deployment().properties.templateLink.uri, 'templates/mgmtGroups.json')]"
-   },
+        },
         "deploymentNames": {
-            "mgmtGroupDeploymentName": "[take(concat('EntScale-Foundational-Mgs', '-', deployment().location, guid(parameters('enterpriseScaleCompanyPrefix'))), 64)]"
+            "mgmtGroupDeploymentName": "[take(concat('EntScale-Foundational-Mgs', '-', parameters('location'), guid(parameters('enterpriseScaleCompanyPrefix'))), 64)]"
         }
     },
     "resources": [
@@ -23,7 +30,7 @@
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
             "name": "[variables('deploymentNames').mgmtGroupDeploymentName]",
-            "location": "[deployment().location]",
+            "location": "[parameters('location')]",
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
