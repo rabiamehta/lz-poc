@@ -40,8 +40,7 @@
       }
     ],
     "outputs": {
-      "enterpriseScaleCompanyPrefix": "[steps('lzSettings').esMgmtGroup]",
-      "location": "[location()]"
+      "enterpriseScaleCompanyPrefix": "[steps('lzSettings').esMgmtGroup]"
     }
   }
 }
