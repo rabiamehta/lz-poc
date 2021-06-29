@@ -11,16 +11,9 @@
         }
     },
     "variables": {
-        "azPolicyEnvMapping": "templates/policies.json",
-        "azEnvPolicy": "[variables('azPolicyEnvMapping')]",
         "deploymentUris": {
-            "managementGroups": "[uri(deployment().properties.templateLink.uri, 'templates/mgmtGroups.json')]",
-            "policyDefinitions": "[concat(uri(deployment().properties.templateLink.uri, variables('azEnvPolicy')))]",
-            "monitoring": "[uri(deployment().properties.templateLink.uri, 'templates/logAnalytics.json')]",
-            "monitoringSolutions": "[uri(deployment().properties.templateLink.uri, 'templates/logAnalyticsSolutions.json')]",
-            "diagnosticsAndSecurity": "[uri(deployment().properties.templateLink.uri, 'templates/diagnosticsAndSecurity.json')]",
-            "landingZone": "[uri(deployment().properties.templateLink.uri, 'templates/lz_policies.json')]"
-        },
+            "managementGroups": "[uri(deployment().properties.templateLink.uri, 'templates/mgmtGroups.json')]"
+   },
         "deploymentNames": {
             "mgmtGroupDeploymentName": "[take(concat('EntScale-Foundational-Mgs', '-', deployment().location, guid(parameters('enterpriseScaleCompanyPrefix'))), 64)]"
         }
