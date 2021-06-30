@@ -12,10 +12,10 @@
     },
     "variables": {
         "deploymentUris": {
-            "managementGroups": "[uri(deployment().properties.templateLink.uri, 'templates/mgmtGroups.json')]"
+            "managementGroups": "[uri(deployment().properties.templateLink.uri, 'nestedtemplates/mgmtGroups.json')]"
         },
         "deploymentNames": {
-            "mgmtGroupDeploymentName": "[take(concat('EntScale-Foundational-Mgs', '-', guid(parameters('enterpriseScaleCompanyPrefix'))), 64)]"
+            "mgmtGroupDeploymentName": "[take(concat('EntScale-Foundational-Mgs', '-' , deployment().location, guid(parameters('enterpriseScaleCompanyPrefix'))), 64)]"
         }
     },
     "resources": [
@@ -23,6 +23,7 @@
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
             "name": "[variables('deploymentNames').mgmtGroupDeploymentName]",
+            "location": "[deployment().location]",
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
