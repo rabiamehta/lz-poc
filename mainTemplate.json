@@ -20,10 +20,10 @@
     },
     "resources": [
         {
+            "scope": "/",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
             "name": "[variables('deploymentNames').mgmtGroupDeploymentName]",
-            "location": "[deployment().location]",
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
