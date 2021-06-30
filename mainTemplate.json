@@ -12,44 +12,45 @@
     },
     "variables": {
         "deploymentUris": {
-            // "managementGroups": "[uri(deployment().properties.templateLink.uri, 'nestedtemplates/mgmtGroups.json')]"
-            "strgAccounts": "[uri(deployment().properties.templateLink.uri, 'nestedtemplates/strgAccounts.json')]"
+            "managementGroups": "[uri(deployment().properties.templateLink.uri, 'nestedtemplates/mgmtGroups.json')]"
+            // "strgAccounts": "[uri(deployment().properties.templateLink.uri, 'nestedtemplates/strgAccounts.json')]"
         }
-        // ,
-        // "deploymentNames": {
-        //     "mgmtGroupDeploymentName": "[take(concat('EntScale-Foundational-Mgs', '-' , guid(parameters('enterpriseScaleCompanyPrefix'))), 64)]"
-        // }
+        ,
+        "deploymentNames": {
+            "mgmtGroupDeploymentName": "[take(concat('EntScale-Foundational-Mgs', '-' , guid(parameters('enterpriseScaleCompanyPrefix'))), 64)]"
+        }
     },
     "resources": [
-        // {
-        //     "type": "Microsoft.Resources/deployments",
-        //     "apiVersion": "2019-10-01",
-        //     "name": "[variables('deploymentNames').mgmtGroupDeploymentName]",
-        //     "properties": {
-        //         "mode": "Incremental",
-        //         "templateLink": {
-        //             "contentVersion": "1.0.0.0",
-        //             "uri": "[variables('deploymentUris').managementGroups]"
-        //         },
-        //         "parameters": {
-        //             "topLevelManagementGroupPrefix": {
-        //                 "value": "[parameters('enterpriseScaleCompanyPrefix')]"
-        //             }
-        //         }
-        //     }
-        // },
         {
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
-            "name": "[parameters('enterpriseScaleCompanyPrefix')]",
+            "name": "[variables('deploymentNames').mgmtGroupDeploymentName]",
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
                     "contentVersion": "1.0.0.0",
-                    "uri": "[variables('deploymentUris').strgAccounts]"
+                    "uri": "[variables('deploymentUris').managementGroups]"
+                },
+                "parameters": {
+                    "topLevelManagementGroupPrefix": {
+                        "value": "[parameters('enterpriseScaleCompanyPrefix')]"
+                    }
                 }
             }
         }
+        // ,
+        // {
+        //     "type": "Microsoft.Resources/deployments",
+        //     "apiVersion": "2019-10-01",
+        //     "name": "[parameters('enterpriseScaleCompanyPrefix')]",
+        //     "properties": {
+        //         "mode": "Incremental",
+        //         "templateLink": {
+        //             "contentVersion": "1.0.0.0",
+        //             "uri": "[variables('deploymentUris').strgAccounts]"
+        //         }
+        //     }
+        // }
     ],
     "outputs": {
         "deployment": {
