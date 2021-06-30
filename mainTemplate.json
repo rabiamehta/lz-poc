@@ -15,7 +15,7 @@
             "managementGroups": "[uri(deployment().properties.templateLink.uri, 'nestedtemplates/mgmtGroups.json')]"
         },
         "deploymentNames": {
-            "mgmtGroupDeploymentName": "[take(concat('EntScale-Foundational-Mgs', '-' , deployment().location, guid(parameters('enterpriseScaleCompanyPrefix'))), 64)]"
+            "mgmtGroupDeploymentName": "[take(concat('EntScale-Foundational-Mgs', '-' , guid(parameters('enterpriseScaleCompanyPrefix'))), 64)]"
         }
     },
     "resources": [
