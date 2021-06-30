@@ -1,5 +1,5 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2019-08-01/tenantDeploymentTemplate.json#",
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
         "enterpriseScaleCompanyPrefix": {
@@ -12,28 +12,41 @@
     },
     "variables": {
         "deploymentUris": {
-            "managementGroups": "[uri(deployment().properties.templateLink.uri, 'nestedtemplates/mgmtGroups.json')]"
-        },
-        "deploymentNames": {
-            "mgmtGroupDeploymentName": "[take(concat('EntScale-Foundational-Mgs', '-' , guid(parameters('enterpriseScaleCompanyPrefix'))), 64)]"
+            // "managementGroups": "[uri(deployment().properties.templateLink.uri, 'nestedtemplates/mgmtGroups.json')]"
+            "strgAccounts": "[uri(deployment().properties.templateLink.uri, 'nestedtemplates/strgAccounts.json')]"
         }
+        // ,
+        // "deploymentNames": {
+        //     "mgmtGroupDeploymentName": "[take(concat('EntScale-Foundational-Mgs', '-' , guid(parameters('enterpriseScaleCompanyPrefix'))), 64)]"
+        // }
     },
     "resources": [
+        // {
+        //     "type": "Microsoft.Resources/deployments",
+        //     "apiVersion": "2019-10-01",
+        //     "name": "[variables('deploymentNames').mgmtGroupDeploymentName]",
+        //     "properties": {
+        //         "mode": "Incremental",
+        //         "templateLink": {
+        //             "contentVersion": "1.0.0.0",
+        //             "uri": "[variables('deploymentUris').managementGroups]"
+        //         },
+        //         "parameters": {
+        //             "topLevelManagementGroupPrefix": {
+        //                 "value": "[parameters('enterpriseScaleCompanyPrefix')]"
+        //             }
+        //         }
+        //     }
+        // },
         {
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
-            "name": "[variables('deploymentNames').mgmtGroupDeploymentName]",
-            "location": "southeastasia",
+            "name": "[parameters('enterpriseScaleCompanyPrefix')]",
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
                     "contentVersion": "1.0.0.0",
-                    "uri": "[variables('deploymentUris').managementGroups]"
-                },
-                "parameters": {
-                    "topLevelManagementGroupPrefix": {
-                        "value": "[parameters('enterpriseScaleCompanyPrefix')]"
-                    }
+                    "uri": "[variables('deploymentUris').strgAccounts]"
                 }
             }
         }
