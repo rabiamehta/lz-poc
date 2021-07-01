@@ -4,6 +4,7 @@
     "parameters": {
         "topLevelManagementGroupPrefix": {
             "type": "string",
+            "defaultValue": "coe",
             "metadata": {
                 "description": "Provide prefix for the management group structure."
             }
